@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guess the Letter</title>
+</head>
+<body>
+	<h1>The Psychic Game</h1>
+
+<div id="game">
+	<p>Press any letter key to start the game!</p>
+</div>
+
+<!-- I need the user to select a letter
+
+I need the computer to pick a random letter
+
+I need to compare the user choice to the computer selected letter
+
+I need to list the number of wins and losses
+
+I need to list the number of guesses remaining
+
+I need to list the letters guessed so far 
+
+I need the computer to have a fixed choice for 10 trys then I need it to change the letter
+-->
+
+<script type="text/javascript">
+
+	var options = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
+	var computerChoice = "";
+	var wins = 0;
+	var losses = 0;
+	var guessesRemaining = 10;
+	var lettersGuessed = [];
+	var roundOver = false;
+
+	document.onkeyup = function() {
+		var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+		console.log(userGuess);
+
+		var computerChoice = options[Math.floor(Math.random()*options.length)];
+
+		console.log(computerChoice);
+
+		if (userGuess == computerChoice) {
+			wins++;
+			guessesRemaining = 10;
+			alert("Correct! The letter was: " + computerChoice);
+			lettersGuessed = [];
+		} else {
+			guessesRemaining--;
+			lettersGuessed.push(userGuess);
+
+		if (guessesRemaining == 0) {
+			losses++;
+			guessesRemaining = 10;
+			alert("You lost! The letter was: " + computerChoice);
+			lettersGuessed = [];
+		}
+
+		console.log(lettersGuessed);
+		}
+
+		var html =
+			"<p>Press any letter key to make your next choice!</p>" +
+			"<p>Wins: " + wins + "</p>" +
+			"<p>Losses: " + losses + "</p>" +
+			"<p>Guesses Remaining: " + guessesRemaining + "</p>" +
+			"<p>Letters Guessed: " +lettersGuessed + "</p>";
+
+			document.querySelector('#game').innerHTML = html;
+
+	}
+	
+</script>
+</body>
+</html>
